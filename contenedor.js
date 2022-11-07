@@ -6,7 +6,7 @@ class Contenedor {
     if (this.productos.length > 0) {
       const encontrados = await this.productos.filter((prd) => prd.id == id);
       if (encontrados.length > 0) {
-        return encontrados;
+        return (encontrados.length === 1 ? encontrados[0] : encontrados)
       } else {
         return null;
       }
@@ -37,16 +37,21 @@ class Contenedor {
     }
     return false
   }
+  async actualizacionProducto(id){
+    if(this.productos.length > 0){
+      for(let i = 0; i < this.productos.length; i++){
+        if(this.productos[i].id==id){
+          return (prodActual)=>{
+            this.productos[i] = prodActual
+          }
+        }
+      }
+      return false
+    }
+    return false
+  }
 }
 
-const productos = new Contenedor([
-  {
-    id: 1,
-    title: "zapatillas nike",
-    price: 10.5,
-    thumbnail:
-      "https://sporting.vtexassets.com/arquivos/ids/610015-800-800?v=637968794926400000&width=800&height=800&aspect=true",
-  },
-]);
+const productos = new Contenedor([]);
 
 exports.productos = productos;

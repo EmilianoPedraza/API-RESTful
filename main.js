@@ -54,6 +54,17 @@ rutaProductos.delete("/:id", (req, res)=>{
     })
 })
 
+rutaProductos.put("/:id", async (req, res)=>{
+  const {id, title, price, thumbnail} = req.body
+  const proces = await productos.actualizacionProducto(req.params.id)
+  if(proces===false){res.status(404).json({error:"producto no encontrado"})}
+  else{
+    proces({id, title, price, thumbnail})
+    res.json({valid:"Se actualizo el producto"})
+  }
+  
+})
+
 app.use("/app/productos", rutaProductos);
 
 
